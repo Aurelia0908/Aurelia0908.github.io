@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurelia 的个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+        }
+
+        /* 导航栏 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            border-bottom: 1px solid #eee;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #000;
+            font-weight: 500;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .lang-btn.active {
+            background: #000;
+            color: white;
+        }
+
+        /* 主页部分 */
+        #home {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            background: white;
+        }
+
+        .home-text {
+            flex: 1;
+        }
+
+        .home-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #000;
+        }
+
+        .home-text p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .home-illustration {
+            flex: 1;
+            text-align: right;
+        }
+
+        .home-illustration svg {
+            width: 300px;
+            height: auto;
+        }
+
+        /* 通用板块样式 */
+        section {
+            padding: 5rem 5%;
+            background: #fafafa;
+        }
+
+        section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: #000;
+            border-left: 4px solid #000;
+            padding-left: 1rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        /* 技能标签 */
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+        }
+
+        .skill-tag {
+            padding: 0.5rem 1.2rem;
+            background: #eee;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="nav-links">
+            <a href="#home">主页</a>
+            <a href="#experience">个人经历</a>
+            <a href="#skills">个人技能</a>
+            <a href="#projects">项目</a>
+            <a href="#contact">联系我</a>
+        </div>
+        <div class="lang-switch">
+            <button class="lang-btn active">中文</button>
+            <button class="lang-btn">EN</button>
+        </div>
+    </nav>
+
+    <!-- 主页 -->
+    <section id="home">
+        <div class="home-text">
+            <h1>你好啊！</h1>
+            <p>欢迎访问我的个人网站 | 朱晨雯 / Aurelia</p>
+        </div>
+        <div class="home-illustration">
+            <!-- 这里可以替换成你自己的插画，先放一个示例SVG -->
+            <svg viewBox="0 0 200 300" fill="none" stroke="#000" stroke-width="2">
+                <circle cx="100" cy="50" r="30"/>
+                <path d="M100 80 L100 150"/>
+                <path d="M100 100 L70 180"/>
+                <path d="M100 100 L130 180"/>
+                <path d="M100 150 L70 250"/>
+                <path d="M100 150 L130 250"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 个人经历 -->
+    <section id="experience">
+        <h2>个人经历</h2>
+        <div class="card">
+            <h3>金华朱雀云台有限公司 | AIGC运营专员（实习）</h3>
+            <p>2025.07 – 2025.12</p>
+            <p>负责拼多多产品上架、AIGC提示词优化、批量生成产品图 & SKU，入职1个月打造2款爆款，核心爆款日销200+单。</p>
+        </div>
+        <div class="card">
+            <h3>上海蔚来有限公司 | 学习发展实习生</h3>
+            <p>2026.02 – 2026.03</p>
+            <p>基于飞书 & Excel完成培训数据统计、分析、复盘，制作培训日历、通知等物料，保障流程规范化。</p>
+        </div>
+    </section>
+
+    <!-- 个人技能 -->
+    <section id="skills">
+        <h2>个人技能</h2>
+        <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">SQL/MySQL</span>
+            <span class="skill-tag">机器学习</span>
+            <span class="skill-tag">Office/Excel</span>
+            <span class="skill-tag">AIGC工具</span>
+            <span class="skill-tag">C1驾驶证</span>
+        </div>
+    </section>
+
+    <!-- 项目 -->
+    <section id="projects">
+        <h2>项目经历</h2>
+        <div class="card">
+            <h3>U-Net 宠物皮肤病检测分割 | 项目负责人</h3>
+            <p>2025.12 – 2026.02</p>
+            <p>使用Python、Pandas完成600+条数据清洗，复现并优化U-Net医学分割模型，Dice系数提升5%，损失率降低35%。</p>
+        </div>
+        <div class="card">
+            <h3>第八届浙江省机器人大赛二等奖 | 队长</h3>
+            <p>2024.03 – 2024.07</p>
+            <p>自学SolidWorks建模，设计并装配机器人，使用C++基于STM32实现电机控制、联合运动算法，带队进入决赛获得浙江省二等奖。</p>
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section id="contact">
+        <h2>联系我</h2>
+        <div class="card">
+            <p>📞 电话：15857159040</p>
+            <p>📧 邮箱：1564539236@qq.com</p>
+            <p>📍 浙江·衢州</p>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>© 2026 Aurelia | All rights reserved</p>
+    </footer>
+</body>
+</html>
