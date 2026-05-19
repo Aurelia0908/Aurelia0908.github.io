@@ -18,7 +18,6 @@
             line-height: 1.6;
         }
 
-        /* 导航栏 */
         nav {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
@@ -44,7 +43,6 @@
             color: #9d4edd;
         }
 
-        /* 主页 Hero 区 */
         #home {
             min-height: 90vh;
             display: flex;
@@ -70,7 +68,6 @@
             box-shadow: 0 10px 30px rgba(157, 78, 221, 0.2);
         }
 
-        /* 通用板块 */
         section {
             padding: 5rem 5%;
         }
@@ -83,7 +80,6 @@
             padding-left: 1rem;
         }
 
-        /* 工作经历卡片 - 可点击展开 */
         .experience-card {
             background: rgba(255, 255, 255, 0.85);
             border-radius: 12px;
@@ -118,7 +114,6 @@
         .toggle-icon {
             color: #9d4edd;
             font-size: 1.5rem;
-            transition: transform 0.3s;
         }
 
         .experience-detail {
@@ -133,7 +128,6 @@
             list-style: disc inside;
         }
 
-        /* 技能标签 */
         .skills-container {
             display: flex;
             flex-wrap: wrap;
@@ -148,7 +142,6 @@
             font-size: 0.95rem;
         }
 
-        /* 页脚 */
         footer {
             text-align: center;
             padding: 2rem;
@@ -157,23 +150,23 @@
         }
     </style>
 </head>
+
 <body>
-    <!-- 导航栏 -->
     <nav>
         <div class="logo">Aurelia</div>
         <div class="nav-links">
             <a href="#home">主页</a>
-            <a href="#experience">工作经历</a>
+            <a href="#work">工作经历</a>
+            <a href="#project">项目经历</a>
             <a href="#skills">个人技能</a>
             <a href="#contact">联系我</a>
         </div>
     </nav>
 
-    <!-- 主页 -->
     <section id="home">
         <div class="hero-text">
             <h1>你好，我是朱晨雯</h1>
-            <p>人工智能专业 | 数据敏感 | 严谨细致 | 执行力强</p>
+            <p>浙江万里学院 | 人工智能专业 | 绩点：3.1 | 共青团员</p>
         </div>
         <div class="hero-img">
             <img src="图片/照片.jpg" alt="个人照片">
@@ -181,29 +174,10 @@
     </section>
 
     <!-- 工作经历 -->
-    <section id="experience">
+    <section id="work">
         <h2>工作经历</h2>
 
-        <!-- 经历1 -->
-        <div class="experience-card" onclick="toggleDetail(this)">
-            <div class="experience-header">
-                <div class="experience-title">
-                    <h3>杭州剧点网络有限公司 | AIGC运营专员（实习）</h3>
-                    <p>2026.04 - 2026.05</p>
-                </div>
-                <div class="toggle-icon">+</div>
-            </div>
-            <div class="experience-detail">
-                <ul>
-                    <li>负责短视频平台AIGC内容的创意策划与提示词优化，提升内容生成质量与爆款率</li>
-                    <li>参与产品迭代测试，反馈AIGC工具使用中的问题并提出优化建议</li>
-                    <li>协助运营团队完成内容分发、数据统计与复盘分析</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- 经历2 -->
-        <div class="experience-card" onclick="toggleDetail(this)">
+        <div class="experience-card" onclick="toggle(this)">
             <div class="experience-header">
                 <div class="experience-title">
                     <h3>金华朱雀云台有限公司 | AIGC运营专员（实习）</h3>
@@ -213,15 +187,14 @@
             </div>
             <div class="experience-detail">
                 <ul>
-                    <li>负责拼多多产品上架、AIGC提示词优化、批量生成产品图 & SKU，大幅提升运营效率</li>
-                    <li>协助促销活动价格设置与落地，保障活动期间产品信息的准确性</li>
+                    <li>负责拼多多产品上架、AIGC提示词优化、批量生成产品图 & SKU</li>
+                    <li>协助促销活动价格设置与落地</li>
                     <li>入职1个月打造2款爆款，核心爆款日销200+单</li>
                 </ul>
             </div>
         </div>
 
-        <!-- 经历3 -->
-        <div class="experience-card" onclick="toggleDetail(this)">
+        <div class="experience-card" onclick="toggle(this)">
             <div class="experience-header">
                 <div class="experience-title">
                     <h3>上海蔚来有限公司 | 学习发展实习生</h3>
@@ -231,54 +204,108 @@
             </div>
             <div class="experience-detail">
                 <ul>
-                    <li>基于飞书 & Excel完成培训数据统计、分析、复盘，保障培训数据的完整性与准确性</li>
-                    <li>制作培训日历、通知等物料，保障培训流程规范化、标准化</li>
-                    <li>协助组织线下培训活动，处理学员报名、签到、反馈收集等工作</li>
+                    <li>基于飞书 & Excel完成培训数据统计、分析、复盘</li>
+                    <li>制作培训日历、通知等物料，保障流程规范化</li>
+                    <li>协助组织线下培训活动</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-card" onclick="toggle(this)">
+            <div class="experience-header">
+                <div class="experience-title">
+                    <h3>杭州剧点网络科技有限公司 | AI抽卡师</h3>
+                    <p>2026.04 - 2026.05</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="experience-detail">
+                <ul>
+                    <li>优化剧本关键词、AI抽卡、后期剪辑，日出品3-5集</li>
+                    <li>配合团队一月产出2部精品漫剧，单部热度破2000万</li>
+                    <li>代表作品：《穿成反派亲妈后我洗白了》《蜜桃乌龙》</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- 个人技能 -->
+    <!-- 项目经历（你要的机器人大赛 + U-Net 都在这里！） -->
+    <section id="project">
+        <h2>项目经历</h2>
+
+        <div class="experience-card" onclick="toggle(this)">
+            <div class="experience-header">
+                <div class="experience-title">
+                    <h3>第八届浙江省机器人大赛 | 队长</h3>
+                    <p>2024.03 - 2024.07 | 二等奖</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="experience-detail">
+                <ul>
+                    <li>自学 SolidWorks 建模，设计并装配机器人结构</li>
+                    <li>使用 C++ 基于 STM32 实现电机旋转、联合运动算法</li>
+                    <li>带队通过预赛进入决赛，荣获浙江省二等奖</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="experience-card" onclick="toggle(this)">
+            <div class="experience-header">
+                <div class="experience-title">
+                    <h3>U-Net 宠物皮肤病检测分割 | 负责人</h3>
+                    <p>2025.12 - 2026.02</p>
+                </div>
+                <div class="toggle-icon">+</div>
+            </div>
+            <div class="experience-detail">
+                <ul>
+                    <li>复现人类皮肤病 U-Net 模型，使用 Python & Pandas 清洗 600 条数据</li>
+                    <li>优化模型，Dice 系数提升 5%，损失率降低 35%</li>
+                    <li>使用 Matplotlib 可视化损失曲线、生成病灶热力图</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
     <section id="skills">
         <h2>个人技能</h2>
         <div class="skills-container">
             <span class="skill-tag">Python</span>
+            <span class="skill-tag">C++</span>
+            <span class="skill-tag">STM32</span>
             <span class="skill-tag">SQL/MySQL</span>
             <span class="skill-tag">机器学习</span>
-            <span class="skill-tag">Office/Excel</span>
+            <span class="skill-tag">SolidWorks</span>
             <span class="skill-tag">AIGC工具</span>
             <span class="skill-tag">数据处理与分析</span>
-            <span class="skill-tag">文案撰写与优化</span>
+            <span class="skill-tag">Excel/Office</span>
         </div>
     </section>
 
-    <!-- 联系我 -->
     <section id="contact">
         <h2>联系我</h2>
         <div class="experience-card">
             <p>📞 电话：15857159040</p>
             <p>📧 邮箱：1564539236@qq.com</p>
-            <p>📍 浙江·衢州</p>
+            <p>📍 浙江·杭州</p>
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer>
         <p>© 2026 朱晨雯 | 个人简历</p>
     </footer>
 
-    <!-- 点击展开详情的交互JS -->
     <script>
-        function toggleDetail(card) {
-            const detail = card.querySelector('.experience-detail');
-            const icon = card.querySelector('.toggle-icon');
-            if (detail.style.display === 'block') {
-                detail.style.display = 'none';
-                icon.textContent = '+';
+        function toggle(card) {
+            const d = card.querySelector('.experience-detail');
+            const i = card.querySelector('.toggle-icon');
+            if (d.style.display === 'block') {
+                d.style.display = 'none';
+                i.textContent = '+';
             } else {
-                detail.style.display = 'block';
-                icon.textContent = '-';
+                d.style.display = 'block';
+                i.textContent = '-';
             }
         }
     </script>
