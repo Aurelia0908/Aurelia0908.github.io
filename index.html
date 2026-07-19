@@ -1,59 +1,3 @@
-[output truncated]
-te(), w = ['日','一','二','三','四','五','六'];
-  document.getElementById('dateDisplay').textContent = d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 星期'+w[d.getDay()];
-}
-updDate(); render();
-setInterval(function() { var nd = getDateStr(); if (nd !== currentDate) { currentDate = nd; updDate(); render(); } }, 60000);
-
-// ── animal face animation ──
-(function() {
-  var animals = {
-    cat:    { n: '\u{1F431}', b: '\u{1F638}', t: '\u{1F60B}' },
-    dog:    { n: '\u{1F436}', b: '\u{1F979}', t: '\u{1FAE0}' },
-    rabbit: { n: '\u{1F430}', b: '\u{1F60C}', t: '\u{1F61C}' },
-    bear:   { n: '\u{1F43B}', b: '\u{1F60A}', t: '\u{1F92A}' },
-    panda:  { n: '\u{1F43C}', b: '\u{1F60A}', t: '\u{1F61B}' },
-    fox:    { n: '\u{1F98A}', b: '\u{1F60F}', t: '\u{1F61D}' },
-    koala:  { n: '\u{1F428}', b: '\u{1F917}', t: '\u{1F924}' },
-    frog:   { n: '\u{1F438}', b: '\u{1F92D}', t: '\u{1F974}' },
-    lion:   { n: '\u{1F981}', b: '\u{1F60E}', t: '\u{1F92A}' },
-  };
-  var decos = document.querySelectorAll('.deco[data-animal]');
-  var states = {};
-  decos.forEach(function(el) {
-    var key = el.getAttribute('data-animal');
-    states[key] = 'normal';
-  });
-  setInterval(function() {
-    decos.forEach(function(el) {
-      var key = el.getAttribute('data-animal');
-      var a = animals[key];
-      if (!a) return;
-      var r = Math.random();
-      if (r < 0.15) {
-        // blink
-        el.textContent = a.b;
-        states[key] = 'blink';
-        setTimeout(function() {
-          if (states[key] === 'blink') { el.textContent = a.n; states[key] = 'normal'; }
-        }, 1200);
-      } else if (r < 0.25) {
-        // tongue
-        el.textContent = a.t;
-        states[key] = 'tongue';
-        setTimeout(function() {
-          if (states[key] === 'tongue') { el.textContent = a.n; states[key] = 'normal'; }
-        }, 1500);
-      } else if (states[key] === 'normal') {
-        el.textContent = a.n;
-      }
-    });
-  }, 2500);
-})();
-</script>
-</body>
-</html>
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -196,7 +140,7 @@ body {
 </style>
 </head>
 <body>
-<div class="deco" data-animal="cat">����</div>
+<div class="deco" data-animal="cat">🐱</div>
 <div class="deco" data-animal="dog">🐶</div>
 <div class="deco" data-animal="rabbit">🐰</div>
 <div class="deco" data-animal="bear">🐻</div>
@@ -395,4 +339,5 @@ setInterval(function() { var nd = getDateStr(); if (nd !== currentDate) { curren
 </script>
 </body>
 </html>
+
 
