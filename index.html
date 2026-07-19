@@ -1,313 +1,398 @@
+[output truncated]
+te(), w = ['日','一','二','三','四','五','六'];
+  document.getElementById('dateDisplay').textContent = d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 星期'+w[d.getDay()];
+}
+updDate(); render();
+setInterval(function() { var nd = getDateStr(); if (nd !== currentDate) { currentDate = nd; updDate(); render(); } }, 60000);
+
+// ── animal face animation ──
+(function() {
+  var animals = {
+    cat:    { n: '\u{1F431}', b: '\u{1F638}', t: '\u{1F60B}' },
+    dog:    { n: '\u{1F436}', b: '\u{1F979}', t: '\u{1FAE0}' },
+    rabbit: { n: '\u{1F430}', b: '\u{1F60C}', t: '\u{1F61C}' },
+    bear:   { n: '\u{1F43B}', b: '\u{1F60A}', t: '\u{1F92A}' },
+    panda:  { n: '\u{1F43C}', b: '\u{1F60A}', t: '\u{1F61B}' },
+    fox:    { n: '\u{1F98A}', b: '\u{1F60F}', t: '\u{1F61D}' },
+    koala:  { n: '\u{1F428}', b: '\u{1F917}', t: '\u{1F924}' },
+    frog:   { n: '\u{1F438}', b: '\u{1F92D}', t: '\u{1F974}' },
+    lion:   { n: '\u{1F981}', b: '\u{1F60E}', t: '\u{1F92A}' },
+  };
+  var decos = document.querySelectorAll('.deco[data-animal]');
+  var states = {};
+  decos.forEach(function(el) {
+    var key = el.getAttribute('data-animal');
+    states[key] = 'normal';
+  });
+  setInterval(function() {
+    decos.forEach(function(el) {
+      var key = el.getAttribute('data-animal');
+      var a = animals[key];
+      if (!a) return;
+      var r = Math.random();
+      if (r < 0.15) {
+        // blink
+        el.textContent = a.b;
+        states[key] = 'blink';
+        setTimeout(function() {
+          if (states[key] === 'blink') { el.textContent = a.n; states[key] = 'normal'; }
+        }, 1200);
+      } else if (r < 0.25) {
+        // tongue
+        el.textContent = a.t;
+        states[key] = 'tongue';
+        setTimeout(function() {
+          if (states[key] === 'tongue') { el.textContent = a.n; states[key] = 'normal'; }
+        }, 1500);
+      } else if (states[key] === 'normal') {
+        el.textContent = a.n;
+      }
+    });
+  }, 2500);
+})();
+</script>
+</body>
+</html>
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurelia | 个人简历</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft YaHei", sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #f5f0ff 0%, #e8dfff 100%);
-            color: #333;
-            line-height: 1.6;
-        }
-
-        nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 1rem 5%;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e0d4ff;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #6a4c93;
-            margin-left: 2rem;
-            font-size: 0.95rem;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #9d4edd;
-        }
-
-        #home {
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-        }
-
-        .hero-text h1 {
-            font-size: 3rem;
-            color: #6a4c93;
-            margin-bottom: 1rem;
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            color: #777;
-        }
-
-        .hero-img img {
-            width: 300px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.2);
-        }
-
-        section {
-            padding: 5rem 5%;
-        }
-
-        section h2 {
-            font-size: 1.8rem;
-            color: #6a4c93;
-            margin-bottom: 2rem;
-            border-left: 4px solid #9d4edd;
-            padding-left: 1rem;
-        }
-
-        .experience-card {
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 15px rgba(157, 78, 221, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(157, 78, 221, 0.2);
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .experience-title h3 {
-            color: #6a4c93;
-            font-size: 1.2rem;
-        }
-
-        .experience-title p {
-            color: #999;
-            font-size: 0.9rem;
-        }
-
-        .toggle-icon {
-            color: #9d4edd;
-            font-size: 1.5rem;
-        }
-
-        .experience-detail {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #e0d4ff;
-            display: none;
-            color: #555;
-        }
-
-        .experience-detail ul {
-            list-style: disc inside;
-        }
-
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .skill-tag {
-            background: rgba(157, 78, 221, 0.1);
-            color: #6a4c93;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            font-size: 0.95rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #6a4c93;
-            color: white;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>✨ 习惯小窝</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Noto Sans SC', -apple-system, sans-serif;
+  background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #e8eaf6 100%);
+  min-height: 100vh; padding: 20px; display: flex; justify-content: center; align-items: flex-start;
+}
+.container { max-width: 420px; width: 100%; margin: 0 auto; padding-bottom: 40px; }
+.deco { position: fixed; pointer-events: none; font-size: 26px; opacity: 0.30; animation: float 6s ease-in-out infinite; z-index: 0; transition: transform 0.3s; }
+.deco:nth-child(1) { top: 5%; left: 4%; animation-delay: 0s; }
+.deco:nth-child(2) { top: 3%; right: 5%; animation-delay: 0.7s; font-size: 22px; }
+.deco:nth-child(3) { top: 22%; left: 1%; animation-delay: 1.4s; font-size: 20px; }
+.deco:nth-child(4) { top: 38%; right: 3%; animation-delay: 2.1s; }
+.deco:nth-child(5) { top: 50%; left: 2%; animation-delay: 2.8s; font-size: 22px; }
+.deco:nth-child(6) { top: 65%; right: 4%; animation-delay: 3.5s; font-size: 20px; }
+.deco:nth-child(7) { top: 78%; left: 3%; animation-delay: 4.2s; }
+.deco:nth-child(8) { top: 90%; right: 2%; animation-delay: 4.9s; font-size: 22px; }
+.deco:nth-child(9) { top: 45%; right: 1%; animation-delay: 5.6s; font-size: 18px; }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-16px) rotate(6deg); } }
+.header { text-align: center; position: relative; z-index: 1; margin-bottom: 24px; }
+.header h1 {
+  font-family: 'ZCOOL KuaiLe', cursive; font-size: 32px;
+  background: linear-gradient(135deg, #f48fb1, #ce93d8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  letter-spacing: 2px; margin-bottom: 4px;
+}
+.header .date { font-size: 14px; color: #9e9e9e; margin-bottom: 16px; }
+.progress-card {
+  background: rgba(255,255,255,0.85); backdrop-filter: blur(10px);
+  border-radius: 24px; padding: 20px; margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(206,147,216,0.15);
+  border: 2px solid rgba(255,255,255,0.6); position: relative; z-index: 1;
+}
+.progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.progress-header .label { font-size: 15px; color: #666; font-weight: 700; }
+.progress-header .count {
+  font-family: 'ZCOOL KuaiLe', cursive; font-size: 22px;
+  background: linear-gradient(135deg, #f48fb1, #ce93d8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.progress-bar { height: 14px; background: #f3e5f5; border-radius: 99px; overflow: hidden; position: relative; }
+.progress-fill {
+  height: 100%; width: 0%; border-radius: 99px;
+  background: linear-gradient(90deg, #f8bbd0, #ce93d8, #b39ddb);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative;
+}
+.progress-fill::after {
+  content: ''; position: absolute; right: 0; top: 2px; width: 20px; height: 10px;
+  background: rgba(255,255,255,0.4); border-radius: 99px;
+}
+.habit-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; position: relative; z-index: 1; }
+.habit-card {
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(10px); border-radius: 20px;
+  padding: 4px 4px 4px 20px; display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 2px 12px rgba(206,147,216,0.1); border: 2px solid rgba(255,255,255,0.6);
+  transition: all 0.3s ease; position: relative; overflow: hidden; animation: slideIn 0.3s ease-out;
+}
+.habit-card:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(206,147,216,0.18); }
+.habit-card.done { background: rgba(232,245,233,0.85); }
+.habit-card .emoji { font-size: 26px; flex-shrink: 0; }
+.habit-card .name { flex: 1; font-size: 16px; font-weight: 700; color: #444; padding: 14px 0; }
+.habit-card.done .name { color: #81c784; text-decoration: line-through 2px rgba(129,199,132,0.4); }
+.toggle-btn {
+  width: 48px; height: 48px; border-radius: 50%; border: 2px solid #e1bee7;
+  background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  flex-shrink: 0; outline: none; position: relative;
+}
+.toggle-btn:hover { background: #f3e5f5; transform: scale(1.08); }
+.toggle-btn:active { transform: scale(0.92); }
+.habit-card.done .toggle-btn { background: linear-gradient(135deg,#a5d6a7,#81c784); border-color: #81c784; box-shadow: 0 2px 12px rgba(129,199,132,0.3); }
+.habit-card.done .toggle-btn .check-icon { display: block; }
+.toggle-btn .check-icon { display: none; color: #fff; }
+.toggle-btn .uncheck-icon { display: block; color: #ce93d8; }
+.habit-card.done .toggle-btn .uncheck-icon { display: none; }
+.delete-btn {
+  width: 36px; height: 36px; border: none; background: transparent; border-radius: 50%;
+  cursor: pointer; font-size: 16px; color: #e0e0e0; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; opacity: 0; flex-shrink: 0;
+}
+.habit-card:hover .delete-btn { opacity: 1; }
+.delete-btn:hover { color: #ef9a9a; background: #ffebee; }
+.add-card {
+  background: rgba(255,255,255,0.6); border: 2px dashed #e1bee7; border-radius: 20px;
+  padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+  position: relative; z-index: 1; transition: border-color 0.3s;
+}
+.add-card:focus-within { border-color: #ce93d8; background: rgba(255,255,255,0.85); }
+.add-card input {
+  flex: 1; border: none; background: transparent; font-size: 15px;
+  font-family: 'Noto Sans SC', sans-serif; color: #555; outline: none; padding: 8px 0;
+}
+.add-card input::placeholder { color: #bbb; }
+.add-btn {
+  background: linear-gradient(135deg, #f48fb1, #ce93d8); color: #fff; border: none;
+  border-radius: 14px; padding: 10px 20px; font-size: 15px; font-weight: 700;
+  font-family: 'ZCOOL KuaiLe', cursive; cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); white-space: nowrap;
+}
+.add-btn:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(206,147,216,0.3); }
+.add-btn:active { transform: scale(0.96); }
+.empty-state { text-align: center; padding: 48px 20px; color: #b0b0b0; position: relative; z-index: 1; }
+.empty-state .icon { font-size: 64px; margin-bottom: 16px; opacity: 0.6; }
+.empty-state p { font-size: 15px; line-height: 1.8; }
+.stats-bar { display: flex; gap: 8px; margin-bottom: 16px; position: relative; z-index: 1; }
+.stat-item {
+  flex: 1; background: rgba(255,255,255,0.7); backdrop-filter: blur(8px); border-radius: 16px;
+  padding: 12px 10px; text-align: center; border: 2px solid rgba(255,255,255,0.4);
+}
+.stat-item .num {
+  font-family: 'ZCOOL KuaiLe', cursive; font-size: 22px;
+  background: linear-gradient(135deg, #f48fb1, #ce93d8);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.stat-item .lbl { font-size: 12px; color: #999; margin-top: 2px; }
+.sparkle-container { position: fixed; pointer-events: none; z-index: 999; }
+.sparkle { position: absolute; pointer-events: none; animation: sparkle-fly 0.8s ease-out forwards; }
+@keyframes sparkle-fly {
+  0% { opacity: 1; transform: translate(0,0) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0) rotate(180deg); }
+}
+.confetti-piece {
+  position: fixed; width: 10px; height: 10px; border-radius: 2px;
+  pointer-events: none; z-index: 999; animation: confetti-fall 1.2s ease-out forwards;
+}
+@keyframes confetti-fall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateY(200px) rotate(720deg) scale(0.3); }
+}
+@media (max-width: 460px) { body { padding: 12px; } .header h1 { font-size: 26px; } .habit-card { padding: 4px 4px 4px 14px; } .habit-card .name { font-size: 14px; } .add-card { padding: 10px 14px; } .deco { display: none; } }
+@keyframes slideIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+</style>
 </head>
-
 <body>
-    <nav>
-        <div class="logo">Aurelia</div>
-        <div class="nav-links">
-            <a href="#home">主页</a>
-            <a href="#work">工作经历</a>
-            <a href="#project">项目经历</a>
-            <a href="#skills">个人技能</a>
-            <a href="#contact">联系我</a>
-        </div>
-    </nav>
+<div class="deco" data-animal="cat">����</div>
+<div class="deco" data-animal="dog">🐶</div>
+<div class="deco" data-animal="rabbit">🐰</div>
+<div class="deco" data-animal="bear">🐻</div>
+<div class="deco" data-animal="panda">🐼</div>
+<div class="deco" data-animal="fox">🦊</div>
+<div class="deco" data-animal="koala">🐨</div>
+<div class="deco" data-animal="frog">🐸</div>
+<div class="deco" data-animal="lion">🦁</div>
+<div class="container">
+  <div class="header">
+    <h1>✨ 习惯小窝</h1>
+    <div class="date" id="dateDisplay"></div>
+  </div>
+  <div class="stats-bar">
+    <div class="stat-item"><div class="num" id="totalHabits">0</div><div class="lbl">习惯总数</div></div>
+    <div class="stat-item"><div class="num" id="todayCount">0</div><div class="lbl">今日完成</div></div>
+    <div class="stat-item"><div class="num" id="streakCount">0</div><div class="lbl">连续天数</div></div>
+  </div>
+  <div class="progress-card">
+    <div class="progress-header"><span class="label">🐱 今日进度</span><span class="count" id="progressLabel">0 / 0</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="habit-list" id="habitList"></div>
+  <div class="add-card">
+    <span>📝</span>
+    <input type="text" id="newHabitInput" placeholder="输入新习惯，比如早睡…" maxlength="20">
+    <button class="add-btn" id="addBtn">添加</button>
+  </div>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="icon">🌱</div>
+    <p>还没有习惯呢～<br>在上面添加一个你想要坚持的好习惯吧！</p>
+  </div>
+</div>
+<script>
+const STORAGE_KEY = 'habit_tracker_data';
+const EMOJIS = ['\u{1F319}','\u{1F4DA}','\u{1F4AA}','\u{1F9D8}','\u{1F4A7}','\u{1F3C3}','\u{1F3A8}','\u{270D}\u{FE0F}','\u{1F9E0}','\u{1F957}','\u{1F3B5}','\u{1F33F}','\u{2600}\u{FE0F}','\u{1F9F9}','\u{1F4D6}','\u{1F3AF}'];
+let data = loadData();
+let currentDate = getDateStr();
+function getDefaultData() { return { habits: [], records: {} }; }
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) { const p = JSON.parse(raw); if (p && typeof p === 'object' && Array.isArray(p.habits)) return p; }
+  } catch(e) {}
+  return getDefaultData();
+}
+function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+function getDateStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function getTodayRecord() { if (!data.records[currentDate]) data.records[currentDate] = {}; return data.records[currentDate]; }
+function getCompletedCount() { const r = getTodayRecord(); return data.habits.filter(h => r[h.id]).length; }
+function getStreak() {
+  if (data.habits.length === 0) return 0;
+  let s = 0; const d = new Date();
+  while (true) {
+    const ds = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const r = data.records[ds];
+    if (r && data.habits.filter(h => r[h.id]).length === data.habits.length) { s++; d.setDate(d.getDate()-1); }
+    else break;
+  }
+  return s;
+}
+function genId() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function getEmoji(i) { return EMOJIS[i % EMOJIS.length]; }
+function sparkles(x, y) {
+  const c = document.createElement('div'); c.className = 'sparkle-container'; c.style.left = x+'px'; c.style.top = y+'px';
+  const syms = ['\u2728','\u2B50','\u{1F496}','\u{1F338}','\u{1F31F}'];
+  for (let i = 0; i < 8; i++) {
+    const e = document.createElement('div'); e.className = 'sparkle'; e.textContent = syms[i%5];
+    e.style.fontSize = (14+Math.random()*12)+'px';
+    const a = Math.PI*2/8*i+(Math.random()-0.5)*0.5, d = 40+Math.random()*50;
+    e.style.setProperty('--dx', Math.cos(a)*d+'px'); e.style.setProperty('--dy', Math.sin(a)*d+'px');
+    c.appendChild(e);
+  }
+  document.body.appendChild(c); setTimeout(() => c.remove(), 900);
+}
+function confetti() {
+  const cs = ['#f48fb1','#ce93d8','#81c784','#ffcc80','#90caf9','#f06292'];
+  for (let i = 0; i < 30; i++) {
+    const e = document.createElement('div'); e.className = 'confetti-piece';
+    e.style.left = Math.random()*100+'vw'; e.style.top = '-10px';
+    e.style.background = cs[Math.floor(Math.random()*cs.length)];
+    e.style.width = (6+Math.random()*8)+'px'; e.style.height = (6+Math.random()*8)+'px';
+    e.style.borderRadius = Math.random()>0.5?'50%':'2px';
+    e.style.animationDuration = (0.8+Math.random()*0.8)+'s'; e.style.animationDelay = Math.random()*0.4+'s';
+    document.body.appendChild(e); setTimeout(() => e.remove(), 2000);
+  }
+}
+function render() {
+  const list = document.getElementById('habitList'), es = document.getElementById('emptyState');
+  const te = document.getElementById('totalHabits'), ye = document.getElementById('todayCount'), se = document.getElementById('streakCount');
+  const pf = document.getElementById('progressFill'), pl = document.getElementById('progressLabel');
+  const total = data.habits.length, done = getCompletedCount(), streak = getStreak(), pct = total>0 ? done/total*100 : 0;
+  te.textContent = total; ye.textContent = done; se.textContent = streak;
+  pf.style.width = pct+'%'; pl.textContent = done+' / '+total;
+  if (total === 0) { list.innerHTML = ''; es.style.display = 'block'; return; }
+  es.style.display = 'none';
+  const r = getTodayRecord(); let html = '';
+  data.habits.forEach((h, i) => {
+    const isDone = !!r[h.id];
+    html += '<div class="habit-card'+(isDone?' done':'')+'" data-id="'+h.id+'">';
+    html += '<span class="emoji">'+getEmoji(i)+'</span>';
+    html += '<span class="name">'+esc(h.name)+'</span>';
+    html += '<button class="delete-btn" data-action="delete" title="删除习惯">\u2715</button>';
+    html += '<button class="toggle-btn" data-action="toggle"><span class="uncheck-icon">\u25CB</span><span class="check-icon">\u2713</span></button>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+}
+function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function toggle(id) {
+  const r = getTodayRecord(); const was = !!r[id]; r[id] = !was; saveData();
+  const card = document.querySelector('.habit-card[data-id="'+id+'"]');
+  if (card) {
+    if (!was) { card.classList.add('done'); const b = card.querySelector('.toggle-btn'); const rect = b.getBoundingClientRect(); sparkles(rect.left+rect.width/2, rect.top+rect.height/2); }
+    else card.classList.remove('done');
+  }
+  render();
+  if (getCompletedCount() === data.habits.length && data.habits.length > 0) setTimeout(confetti, 200);
+}
+function addHabit(name) {
+  name = name.trim(); if (!name) return;
+  if (data.habits.length >= 20) { alert('最多添加 20 个习惯哦～'); return; }
+  data.habits.push({ id: genId(), name: name }); saveData(); render();
+}
+function delHabit(id) {
+  data.habits = data.habits.filter(h => h.id !== id);
+  Object.keys(data.records).forEach(d => delete data.records[d][id]);
+  saveData(); render();
+}
+document.getElementById('habitList').addEventListener('click', function(e) {
+  var btn = e.target.closest('button'); if (!btn) return;
+  var card = btn.closest('.habit-card'); if (!card) return;
+  var id = card.dataset.id;
+  if (btn.dataset.action === 'toggle') toggle(id);
+  else if (btn.dataset.action === 'delete' && confirm('确定要删除这个习惯吗？(>_<)')) delHabit(id);
+});
+document.getElementById('addBtn').addEventListener('click', function() {
+  var inp = document.getElementById('newHabitInput'); addHabit(inp.value); inp.value = ''; inp.focus();
+});
+document.getElementById('newHabitInput').addEventListener('keydown', function(e) { if (e.key === 'Enter') document.getElementById('addBtn').click(); });
+function updDate() {
+  var d = new Date(), w = ['日','一','二','三','四','五','六'];
+  document.getElementById('dateDisplay').textContent = d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 星期'+w[d.getDay()];
+}
+updDate(); render();
+setInterval(function() { var nd = getDateStr(); if (nd !== currentDate) { currentDate = nd; updDate(); render(); } }, 60000);
 
-    <section id="home">
-        <div class="hero-text">
-            <h1>你好，我是朱晨雯</h1>
-            <p>浙江万里学院 | 人工智能专业 | 绩点：3.1 | 共青团员</p>
-        </div>
-        <div class="hero-img">
-            <img src="图片/照片.jpg" alt="个人照片">
-        </div>
-    </section>
-
-    <!-- 工作经历 -->
-    <section id="work">
-        <h2>工作经历</h2>
-
-        <div class="experience-card" onclick="toggle(this)">
-            <div class="experience-header">
-                <div class="experience-title">
-                    <h3>金华朱雀云台有限公司 | AIGC运营专员（实习）</h3>
-                    <p>2025.07 - 2025.12</p>
-                </div>
-                <div class="toggle-icon">+</div>
-            </div>
-            <div class="experience-detail">
-                <ul>
-                    <li>负责拼多多产品上架、AIGC提示词优化、批量生成产品图 & SKU</li>
-                    <li>协助促销活动价格设置与落地</li>
-                    <li>入职1个月打造2款爆款，核心爆款日销200+单</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="experience-card" onclick="toggle(this)">
-            <div class="experience-header">
-                <div class="experience-title">
-                    <h3>上海蔚来有限公司 | 学习发展实习生</h3>
-                    <p>2026.02 - 2026.03</p>
-                </div>
-                <div class="toggle-icon">+</div>
-            </div>
-            <div class="experience-detail">
-                <ul>
-                    <li>基于飞书 & Excel完成培训数据统计、分析、复盘</li>
-                    <li>制作培训日历、通知等物料，保障流程规范化</li>
-                    <li>协助组织线下培训活动</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="experience-card" onclick="toggle(this)">
-            <div class="experience-header">
-                <div class="experience-title">
-                    <h3>杭州剧点网络科技有限公司 | AI抽卡师</h3>
-                    <p>2026.04 - 2026.05</p>
-                </div>
-                <div class="toggle-icon">+</div>
-            </div>
-            <div class="experience-detail">
-                <ul>
-                    <li>优化剧本关键词、AI抽卡、后期剪辑，日出品3-5集</li>
-                    <li>配合团队一月产出2部精品漫剧，单部热度破2000万</li>
-                    <li>代表作品：《穿成反派亲妈后我洗白了》《蜜桃乌龙》</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- 项目经历（你要的机器人大赛 + U-Net 都在这里！） -->
-    <section id="project">
-        <h2>项目经历</h2>
-
-        <div class="experience-card" onclick="toggle(this)">
-            <div class="experience-header">
-                <div class="experience-title">
-                    <h3>第八届浙江省机器人大赛 | 队长</h3>
-                    <p>2024.03 - 2024.07 | 二等奖</p>
-                </div>
-                <div class="toggle-icon">+</div>
-            </div>
-            <div class="experience-detail">
-                <ul>
-                    <li>自学 SolidWorks 建模，设计并装配机器人结构</li>
-                    <li>使用 C++ 基于 STM32 实现电机旋转、联合运动算法</li>
-                    <li>带队通过预赛进入决赛，荣获浙江省二等奖</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="experience-card" onclick="toggle(this)">
-            <div class="experience-header">
-                <div class="experience-title">
-                    <h3>U-Net 宠物皮肤病检测分割 | 负责人</h3>
-                    <p>2025.12 - 2026.02</p>
-                </div>
-                <div class="toggle-icon">+</div>
-            </div>
-            <div class="experience-detail">
-                <ul>
-                    <li>复现人类皮肤病 U-Net 模型，使用 Python & Pandas 清洗 600 条数据</li>
-                    <li>优化模型，Dice 系数提升 5%，损失率降低 35%</li>
-                    <li>使用 Matplotlib 可视化损失曲线、生成病灶热力图</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <h2>个人技能</h2>
-        <div class="skills-container">
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">C++</span>
-            <span class="skill-tag">STM32</span>
-            <span class="skill-tag">SQL/MySQL</span>
-            <span class="skill-tag">机器学习</span>
-            <span class="skill-tag">SolidWorks</span>
-            <span class="skill-tag">AIGC工具</span>
-            <span class="skill-tag">数据处理与分析</span>
-            <span class="skill-tag">Excel/Office</span>
-        </div>
-    </section>
-
-    <section id="contact">
-        <h2>联系我</h2>
-        <div class="experience-card">
-            <p>📞 电话：15857159040</p>
-            <p>📧 邮箱：1564539236@qq.com</p>
-            <p>📍 浙江·杭州</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2026 朱晨雯 | 个人简历</p>
-    </footer>
-
-    <script>
-        function toggle(card) {
-            const d = card.querySelector('.experience-detail');
-            const i = card.querySelector('.toggle-icon');
-            if (d.style.display === 'block') {
-                d.style.display = 'none';
-                i.textContent = '+';
-            } else {
-                d.style.display = 'block';
-                i.textContent = '-';
-            }
-        }
-    </script>
+// ── animal face animation ──
+(function() {
+  var animals = {
+    cat:    { n: '\u{1F431}', b: '\u{1F638}', t: '\u{1F60B}' },
+    dog:    { n: '\u{1F436}', b: '\u{1F979}', t: '\u{1FAE0}' },
+    rabbit: { n: '\u{1F430}', b: '\u{1F60C}', t: '\u{1F61C}' },
+    bear:   { n: '\u{1F43B}', b: '\u{1F60A}', t: '\u{1F92A}' },
+    panda:  { n: '\u{1F43C}', b: '\u{1F60A}', t: '\u{1F61B}' },
+    fox:    { n: '\u{1F98A}', b: '\u{1F60F}', t: '\u{1F61D}' },
+    koala:  { n: '\u{1F428}', b: '\u{1F917}', t: '\u{1F924}' },
+    frog:   { n: '\u{1F438}', b: '\u{1F92D}', t: '\u{1F974}' },
+    lion:   { n: '\u{1F981}', b: '\u{1F60E}', t: '\u{1F92A}' },
+  };
+  var decos = document.querySelectorAll('.deco[data-animal]');
+  var states = {};
+  decos.forEach(function(el) {
+    var key = el.getAttribute('data-animal');
+    states[key] = 'normal';
+  });
+  setInterval(function() {
+    decos.forEach(function(el) {
+      var key = el.getAttribute('data-animal');
+      var a = animals[key];
+      if (!a) return;
+      var r = Math.random();
+      if (r < 0.15) {
+        // blink
+        el.textContent = a.b;
+        states[key] = 'blink';
+        setTimeout(function() {
+          if (states[key] === 'blink') { el.textContent = a.n; states[key] = 'normal'; }
+        }, 1200);
+      } else if (r < 0.25) {
+        // tongue
+        el.textContent = a.t;
+        states[key] = 'tongue';
+        setTimeout(function() {
+          if (states[key] === 'tongue') { el.textContent = a.n; states[key] = 'normal'; }
+        }, 1500);
+      } else if (states[key] === 'normal') {
+        el.textContent = a.n;
+      }
+    });
+  }, 2500);
+})();
+</script>
 </body>
 </html>
+
